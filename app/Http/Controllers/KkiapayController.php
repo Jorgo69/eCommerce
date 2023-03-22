@@ -22,22 +22,12 @@ class KkiapayController extends Controller
     $public_key = env('KKIAPAY_PUBLIC_KEY');
     $private_key = env('KKIAPAY_PRIVATE_KEY');
     $secret = env('KKIAPAY_SECRET_KEY');
-    $sandbox = env('sandbo');
+    $sandbox = true;
+    $transaction_id = request('transaction_id');
 
-    $kkiapay = new Kkiapay($public_key, $private_key, $secret, $sandbox);
+    $kkiapay = new Kkiapay($public_key, $private_key, $secret, $sandbox, $transaction_id);
 
-    // effectuer une transaction
-    /* $kkiapay->refundTransaction([
-        "amount" => $amount,
-        "currency" => "XOF",
-        "description" => "Achat sur mon site",
-        "metadata" => [
-            "order_id" => "12345"
-        ],
-        "return_url" => "https://monsite.com/merci"
-    ]); */
-
-    dd($kkiapay);
+    dd($kkiapay->verifyTransaction($transaction_id));
 
     // récupérer l'ID de la transaction
     // $transaction_id = $transaction['id'];

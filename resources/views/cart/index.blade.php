@@ -79,58 +79,9 @@
                                                 style="width: 45px;" alt="Avatar">
                                         </div>
 {{-- debut --}}
-{{-- <kkiapay-widget amount="{{  Cart::total() }}" 
-    key="{{env('KKIAPAY_PUBLIC_KEY')}}"
-    url="<url-vers-votre-logo>"
-    position="center"
-    sandbox="true"
-    data=""
-    callback="{{ route('products.index')}}">
-</kkiapay-widget> --}}
+{{-- <div id="embed" style="width: 500px; height: 420px"></div> --}}
 
-{{-- <script amount="{{  Cart::total() }}">
-    
-    data=""
-    url="<url-vers-votre-logo>"
-    position="right"
-    theme="#0095ff"
-    sandbox="true"
-    key="{{env('KKIAPAY_PUBLIC_KEY')}}"
-    src="https://cdn.kkiapay.me/k.js"
-     amount="{{  Cart::total() }}" 
-    callback="{{ route('payment.callback')}}"
-    data=""
-    url="<url-vers-votre-logo>"
-    position="right"
-    theme="#0095ff"
-    sandbox="true"
-    key="{{env('KKIAPAY_PUBLIC_KEY')}}"
-
-
-
-
-    window.addEventListener("message", function(event) {
-  // Vérifier si l'événement provient de la page KKIAPAY
-  if (event.origin !== "https://cdn.kkiapay.me") {
-    return;
-  }
-
-  // Vérifier si le paiement a été effectué avec succès
-  if (event.data.status === "success") {
-    // Vider le panier
-    Cart::destroy();
-    // Remplacez cette ligne par le code nécessaire pour vider votre panier
-
-    // Afficher un message de succès
-    alert("Paiement réussi ! Votre panier a été vidé.");
-
-    // Rediriger l'utilisateur vers la page d'accueil ou une autre page de votre choix
-    window.location.href = "{{ route('products.index') }}";
-  }
-});
-    </script> --}}
-
-
+  
 
 {{-- End --}}
                             
@@ -151,11 +102,22 @@
                                             <p class="mb-2">{{ getPrice( Cart::total() ) }}</p>
                                         </div>
                                         
-                                        {{-- <form action="{{ route('payer')}}" method="post"> --}}
-                                            @csrf
-                                        <button class="btn btn-success kkiapay-button">{{  Cart::total() }}</button>
-                                    {{-- </form> --}}
-                                    
+                                       <!--
+Replace YOUR_API_PUBLIC_KEY by the API public key of your sandbox or live account.
+-->
+<form action="{{ route('checkout')}}" method="POST">
+    @csrf
+    
+<kkiapay-widget amount="{{Cart::total()}}" 
+    key="{{ env('KKIAPAY_PUBLIC_KEY')}}"
+    url="<url-vers-votre-logo>"
+    position="center"
+    sandbox="true"
+    data=""
+    callback="{{ route('checkout') }}">
+</kkiapay-widget>
+
+   </form>
 
                                     </div>
                                 </div>
@@ -170,5 +132,21 @@
         </div>
     </div>
 </section>
+
+<script type="text/javascript">
+//     FedaPay.init({
+//       public_key: '{{ env('FEDAPAY_PUBLIC')}}',
+//       transaction: {
+//         amount: {{ Cart::total() }},
+//         description: 'Acheter mon produit'
+//       },
+//       customer: {
+//         email: 'johndoe@gmail.com',
+//         lastname: 'Doe',
+//       },
+//       container: '#embed'
+//    });
+</script>
+
 <script src="https://cdn.kkiapay.me/k.js"></script>
 @endsection

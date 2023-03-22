@@ -50,22 +50,6 @@ Route::get('/checkout', [KkiapayController::class, 'checkout'])->name('checkout'
 Route::post('/payment', [KkiapayController::class, 'payment'])->name('payment');
 Route::post('/payment/callback', [KkiapayController::class, 'callback'])->name('payment.callback');
 
-Route::get('voir', function(){
-    $public_key = env('KKIAPAY_PUBLIC_KEY');
-        $private_key = env('KKIAPAY_PRIVATE_KEY');
-        $secret = env('KKIAPAY_SECRET_KEY');
-        $sandbox = env('sandbox');
-        $number = 69238265;
-    $kkiapay = new \Kkiapay\Kkiapay($public_key,
-                                $private_key, 
-                                $secret,
-                                $number,
-                                $sandbox);
-                                $transaction_id = 10;
-                             
-                                
-                                
-    return dd($kkiapay->verifyTransaction($transaction_id));
-});
-
 Route::post('checkout', [KkiapayController::class, 'checkout'])-> name('checkout');
+
+Route::post('show', 'FadepayController@fedapay')->name('payment.show');

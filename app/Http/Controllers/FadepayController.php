@@ -10,31 +10,19 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class FadepayController extends Controller
 {
     
-    public function fedapay(){
-        /* Remplacez VOTRE_CLE_API par votre véritable clé API */
-        \FedaPay\FedaPay::setApiKey("env(PUBLIC_KEY)");
+    public function fedapay(Request $request){
 
-        /* Précisez si vous souhaitez exécuter votre requête en mode test ou live */
-        \FedaPay\FedaPay::setEnvironment('sandbox'); //ou setEnvironment('live');
 
-        /* Créer la transaction */
-        $fedapay = \FedaPay\Transaction::create(array(
-        "description" => "Transaction for john.doe@example.com",
-        "amount" => Cart::total(),
-        "currency" => ["iso" => "XOF"],
-        "callback_url" => "{{ route('products.index) }}",
-        "customer" => [
-            "firstname" => "John",
-            "lastname" => "Doe",
-            "email" => "john.doe@example.com",
-            "phone_number" => [
-                "number" => "+22997808080",
-                "country" => "bj"
-            ]
-        ]
-        ));
-
-        
-        dd($fedapay);
-        }
+         // initialiser l'API Kkiapay
+    $public_key = env('KKIAPAY_PUBLIC_KEY');
+    $private_key = env('KKIAPAY_PRIVATE_KEY');
+    $secret = env('KKIAPAY_SECRET_KEY');
+    $sandbox = env('sandbo');
+        $kkiapay = new \Kkiapay\Kkiapay($public_key,
+                                $private_key, 
+                                $secret, 
+                                $sandbox = true);
+        dd($request->all());
+        return view();
+    }
 }

@@ -18,7 +18,9 @@ class CartController extends Controller
         if( Cart::count() <= 0 ){
             return redirect() ->route('products.index');
         }
-        return view('cart.index');
+        $price = Cart::total();
+
+        return view('cart.index', ['price' => $price]);
     }
 
     /**
