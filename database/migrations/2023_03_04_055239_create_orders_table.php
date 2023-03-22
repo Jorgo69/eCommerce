@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('id_transaction')->unique();
+            $table->integer('montant');
+            $table->dateTime('date_transaction');
+            $table->text('products');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

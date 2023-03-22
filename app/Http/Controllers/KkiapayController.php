@@ -11,7 +11,7 @@ use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
 
 class KkiapayController extends Controller
 {
-    public function checkout()
+    public function checkout(Request $request)
     {
         
         // récupérer le montant à partir du backend
@@ -24,17 +24,36 @@ class KkiapayController extends Controller
     $secret = env('KKIAPAY_SECRET_KEY');
     $sandbox = true;
     $transaction_id = request('transaction_id');
+    
 
     $kkiapay = new Kkiapay($public_key, $private_key, $secret, $sandbox, $transaction_id);
 
+
+    //  Ici pour tout recuperer
     dd($kkiapay->verifyTransaction($transaction_id));
 
-    // récupérer l'ID de la transaction
-    // $transaction_id = $transaction['id'];
+    // les elements a mettre en bdd
 
-    // rediriger l'utilisateur vers la page de paiement Kkiapay
-    // return redirect($transaction['redirect_url']);
-    // dd($transaction);
+    // source; transactionId; amount
+
+    // $amount = $kkiapay->verifyTransaction($transaction_id)->amount;
+    // $fullname = $kkiapay->verifyTransaction($transaction_id)->client->fullname;
+    // $fullname = $transaction->client->fullname;
+
+    // dd($amount);
+
+
+    
+/*  Exemple de code s'incersion dans la bdd
+    $transaction_id = request('transaction_id');
+    $kkiapay = new Kkiapay($public_key, $private_key, $secret, $sandbox, $transaction_id);
+    $amount = $kkiapay->verifyTransaction($transaction_id)->amount;
+
+    $payment = new Payment();
+    $payment->transaction_id = $transaction_id;
+    $payment->amount = $amount;
+    $payment->save(); */
+
     }
 
     private function getAmount()
