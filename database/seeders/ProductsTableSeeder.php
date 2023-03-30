@@ -25,6 +25,10 @@ class ProductsTableSeeder extends Seeder
                 'description' => $faker->text,
                 'price' => $faker->numberBetween(15, 300) * 100,
                 'image' => 'https://placehold.jp/d12360/ffffff/200x250.jpg'
+            ])
+            ->categories()->attach([
+                rand(1, 4),
+                rand(2, 5),
             ]);
         }
     }

@@ -28,8 +28,9 @@ Route::get('/boutique/{slug}', [ProductController::class, 'show'])->name('produc
 
 // Cart Routes
 Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
-Route::post('panier/ajouter', [CartController::class, 'store'])->name('cart.store');
-Route::delete('panier{rowId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
+Route::delete('monPanier{rowId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::patch('monPanier{rowId}', [CartController::class, 'update'])->name('cart.update');
 Route::get('videPanier', [CartController::class, 'destroy']) ->name('cart.destroy');
 
 // Payments Routes
