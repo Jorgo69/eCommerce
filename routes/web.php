@@ -54,3 +54,7 @@ Route::post('/payment/callback', [KkiapayController::class, 'callback'])->name('
 Route::post('checkout', [KkiapayController::class, 'checkout'])-> name('checkout');
 
 Route::post('show', 'FadepayController@fedapay')->name('payment.show');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

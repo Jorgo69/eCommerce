@@ -15,7 +15,7 @@
         <div class="col p-4 d-flex flex-column position-static">
           <strong class="d-inline-block mb-2 text-primary"> CAtegories</strong>
           <strong class="mt-0">{{$product -> title}}</strong>
-          <h3 class="mb-0">{{$product -> description}}</h3>
+          <h3 class="mb-0">{!! $product -> description !!}</h3>
           <div class="mb-1 text-muted">{{$product -> created_at ->format('d/m/Y')}}</div>
           <p class="card-text mb-auto"> <strong> {{$product -> getPrice()}} </strong></p>
           <form action="{{ route('cart.store') }}" method="post">
@@ -25,7 +25,7 @@
           </form>
         </div>
         <div class="col-auto d-none d-lg-block">
-          <img src="{{$product ->image}}" alt="">
+          <img width="300px" height="300px" src="{{ asset('storage/' .$product ->image) }}" alt="">
           
         </div>
 

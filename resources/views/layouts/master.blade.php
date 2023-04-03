@@ -13,13 +13,13 @@
     <title>Blog Template · Bootstrap v5.3</title>
     {{-- @yield('extra-script') --}}
     @livewireStyles
-
+    <link rel="stylesheet" href="ecommerce.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/blog/">
 
     
 
     
-
+    <link rel="stylesheet" href="bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <!-- Favicons -->
@@ -46,7 +46,7 @@
   <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
       
-      @forelse ($categories as $category)
+      @forelse ('App\Models\Category'::all() as $category)
       <a class="p-2 link-secondary" href="{{ route('products.index', ['categorie' => $category->slug]) }}"> {{ $category->name}} </a>
         
       @empty
@@ -79,7 +79,8 @@
       <a href="#">Back to top</a>
     </p>
   </footer>
-  
+
+<script src="bootstrap.min.js"></script>
   
 @yield('extra-js')
 @livewireStyles

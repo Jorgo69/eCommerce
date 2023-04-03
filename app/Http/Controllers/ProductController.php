@@ -14,14 +14,14 @@ class ProductController extends Controller
         // Pour recuperer de façon aleatoires mais par 6
         // $products = Product::inRandomOrder()->take(6)->get();
 
-        $categories = Category::all();
+        $categories = 'App\Models\Category';
 
         if(request()->categorie){
             $products = Product::with('categories')->whereHas('categories', function($query) {
                 $query->where('slug', request()->categorie);
-            })->paginate(6);
+            })->orderBy('created_at', 'DESC')->paginate(6);
         }else{
-            $products = Product::with('categories')->paginate(6);
+            $products = Product::with('categories')->orderBy('created_at', 'DESC')->paginate(6);
         }
 
 

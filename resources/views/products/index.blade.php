@@ -12,7 +12,7 @@
 
   <div class="row mb-2 mb-5">
     @foreach ($products as $product)
-    <div class="col-md-6">
+    <div class="col-md-6 div">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
           @foreach ($product ->categories as $category)
@@ -25,16 +25,14 @@
           <a href="{{ route('products.show', $product ->slug)}}" class="btn btn-primary stretched-link">Voir Plus</a>
         </div>
         <div class="col-auto d-none d-lg-block">
-          <img src="{{$product ->image}}" alt="">
+          <img width="300px" height="auto" src="{{ asset('storage/' .$product ->image) }}" alt="">
         </div>
       </div>
     </div>
     @endforeach
 
   </div>
-<div class="blog-pagination">
-  {{ $products->appends(request()->input() ) ->links() }}
-{{-- </div> --}}
+
   {{-- <div class="row g-5">
     <div class="col-md-8">
       <h3 class="pb-4 mb-4 fst-italic border-bottom">
@@ -229,49 +227,20 @@
   </div> --}}
 
   <style>
-/* Pagination */
-.blog-pagination
-{
-	margin-bottom: 4rem;
-}
-
-.blog-pagination > .btn
-{
-	border-radius: 2rem;
-}
-
-/*    * Blog posts    */
-.blog-post
-{
-	margin-bottom: 4rem;
-}
-
-.blog-post-title
-{
-	margin-bottom: .25rem;
-	font-size: 2.5rem;
-}
-
-.blog-post-meta
-{
-	margin-bottom: 1.25rem;
-	color: #999;
-}
-
-/*    * Footer    */
-.blog-footer
-{
-	padding: 2.5rem 0;
-	color: #999;
-	text-align: center;
-	background-color: #f9f9f9;
-	border-top: .05rem solid #e5e5e5;
-}
-
-.blog-footer p:last-child
-{
-	margin-bottom: 0;
+    .div{
+      width: 600px;
+      height: auto
+    }
+    .pagination{
+      margin: 10px;
+    }
+    .pagination span svg, .pagination a svg {
+  width: 20px;
+  height: 20px;
 }
   </style>
+<div class="pagination">
+  {{ $products->appends(request()->input() ) ->links() }}
+</div>
 </main>
 @endsection
