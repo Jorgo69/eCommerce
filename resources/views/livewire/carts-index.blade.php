@@ -30,7 +30,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <div class="d-flex flex-row align-items-center">
                                                     <div>
-                                                        <img src="{{ $product -> model->image}}" class="img-fluid rounded-3"
+                                                        <img src="{{  asset('storage/' .$product -> model ->image) }}" class="img-fluid rounded-3"
                                                             alt="Shopping item" style="width: 65px;">
                                                     </div>
                                                     <div class="ms-3">
@@ -45,15 +45,7 @@
                                                             <button class="btn btn-secondary" wire:click="sous('{{ $product ->rowId}}')"  @if($product -> qty === 1) disabled @endif>-</button>
                                                             {{ $product -> qty}}
                                                             <button class="btn btn-secondary" wire:click="add('{{ $product ->rowId}}')" @if($product -> qty === 6) disabled @endif>+</button>
-    
-                                                            {{-- <select class="custom-select" name="qty" id="qty"
-                                                                data-id="{{ $product ->rowId }}">
-                                                                @for ($i = 1; $i <= 6; $i++) <option value="{{ $i }}" {{
-                                                                    $product->qty == $i ? 'selected' : ''}}>
-                                                                    {{ $i }}
-                                                                    </option>
-                                                                    @endfor
-                                                            </select> --}}
+
     
                                                         </h5>
                                                     </div>
@@ -73,7 +65,7 @@
                                                         </form>
                                                     </div>
                                                     <div style="width: 80px;">
-                                                        <h5 class="mb-0"> {{ $product -> model->getPrice()}}</h5>
+                                                        <h5 class="mb-0"> {{ $product -> model-> prix}}</h5>
                                                     </div>
                                                     <a href="#!" style="color: #cecece;"><i
                                                             class="fas fa-trash-alt"></i></a>
@@ -105,17 +97,17 @@
     
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">{{ getPrice( Cart::subtotal() ) }}</p>
+                                                <p class="mb-2">{{  Cart::subtotal() }}</p>
                                             </div>
     
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Taxe</p>
-                                                <p class="mb-2">{{ getPrice( Cart::tax() ) }}</p>
+                                                <p class="mb-2">{{  Cart::tax()  }}</p>
                                             </div>
     
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total(Incl. taxes)</p>
-                                                <p class="mb-2">{{ getPrice( Cart::total() ) }}</p>
+                                                <p class="mb-2">{{  Cart::total() }}</p>
                                             </div>
     
                                             <form action="{{ route('checkout')}}" method="POST">

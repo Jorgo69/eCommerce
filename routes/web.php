@@ -4,8 +4,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FadepayController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\KkiapayController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +24,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Restau Template
+Route::get('Accueil', [PostController::class, 'home'])->name('restau.index');
+Route::get('A propos', [PostController::class, 'about'])->name('restau.about');
+Route::get('Contactez_Nous', [PostController::class, 'contact'])->name('restau.contact');
+Route::get('Reservation', [PostController::class, 'reservation'])->name('restau.reservation');
+
+
+
+// end Restau
+
 /* Product Routes */
 Route::get('/boutique', [ProductController::class, 'index'])->name('products.index');
 Route::get('/boutique/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
 // Cart Routes
 Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
