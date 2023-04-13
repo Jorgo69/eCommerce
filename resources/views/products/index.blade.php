@@ -21,7 +21,7 @@
           <strong class="d-inline-block mb-2 text-primary">{{$product -> title}}</strong>
           <h3 class="mb-0">{{$product -> subtitle}}</h3>
           <div class="mb-1 text-muted">{{$product -> created_at ->format('d/m/Y')}}</div>
-          <p class="card-text mb-auto">{{$product -> getPrice()}}</p>
+          <p class="card-text mb-auto">{{$product -> price}} F CFA</p>
           <a href="{{ route('products.show', $product ->slug)}}" class="btn btn-primary stretched-link">Voir Plus</a>
         </div>
         <div class="col-auto d-none d-lg-block">

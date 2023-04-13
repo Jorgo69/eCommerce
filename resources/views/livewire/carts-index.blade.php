@@ -42,9 +42,9 @@
                                                     <div style="width: 50px;">
                                                         <h5 class="fw-normal mb-0">
 
-                                                            <button class="btn btn-secondary" wire:click="sous('{{ $product ->rowId}}')"  @if($product -> qty === 1) disabled @endif>-</button>
+                                                            <button class="btn btn-secondary" wire:click.prevent="sous('{{ $product ->rowId}}')"  @if($product -> qty === 1) disabled @endif>-</button>
                                                             {{ $product -> qty}}
-                                                            <button class="btn btn-secondary" wire:click="add('{{ $product ->rowId}}')" @if($product -> qty === 6) disabled @endif>+</button>
+                                                            <button class="btn btn-secondary" wire:click.prevent="add('{{ $product ->rowId}}')" @if($product -> qty === 6) disabled @endif>+</button>
 
     
                                                         </h5>
@@ -109,11 +109,19 @@
                                                 <p class="mb-2">Total(Incl. taxes)</p>
                                                 <p class="mb-2">{{  Cart::total() }}</p>
                                             </div>
+
+                                            {{--  --}}
+
+
+                                            
+
+
+                                            {{--  --}}
     
                                             <form action="{{ route('checkout')}}" method="POST">
                                                 @csrf
     
-                                                <kkiapay-widget amount="{{Cart::total()}}"
+                                                <kkiapay-widget  amount="{{Cart::subtotal()}}"
                                                     key="{{ env('KKIAPAY_PUBLIC_KEY')}}" url="<url-vers-votre-logo>"
                                                     position="center" sandbox="true" data=""
                                                     callback="{{ route('checkout') }}">

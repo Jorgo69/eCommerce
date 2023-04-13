@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Kkiapay\KkiapayApi;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Gloudemans\Shoppingcart\Facades\Cart as FacadesCart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class KkiapayController extends Controller
@@ -86,12 +87,9 @@ class KkiapayController extends Controller
 
     $payment->products = serialize($products);
 
-    $payment->user_id = 15;
+    $payment->user_id = Auth() ->user() ->id;
 
-
-
-
-    // $payment->save();
+    $payment->save();
     // dd($payment);
 
     // 

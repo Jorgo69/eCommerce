@@ -17,7 +17,7 @@
           <strong class="mt-0">{{$product -> title}}</strong>
           <h3 class="mb-0">{!! $product -> description !!}</h3>
           <div class="big">
-            <span class="card-text mb-auto big"> <strong> {{Cart :: subtotal()}} F CFA</strong></span>          
+            <span class="card-text mb-auto big"> <strong> {{$product -> price}} F CFA</strong></span>          
             <span class="col-md-auto big">
               <form action="{{ route('cart.store') }}" method="post">
                 @csrf

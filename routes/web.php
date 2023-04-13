@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\FadepayController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\KkiapayController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -15,14 +14,16 @@ use TCG\Voyager\Facades\Voyager;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 // Restau Template
 Route::get('Accueil', [PostController::class, 'home'])->name('restau.index');
@@ -40,11 +41,13 @@ Route::get('/boutique/{slug}', [ProductController::class, 'show'])->name('produc
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
 // Cart Routes
-Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
+Route::group(['middleware' =>['auth'] ], function(){
+    Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
 Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
 Route::delete('monPanier{rowId}', [CartController::class, 'remove'])->name('cart.remove');
 Route::patch('monPanier{rowId}', [CartController::class, 'update'])->name('cart.update');
 Route::get('videPanier', [CartController::class, 'destroy']) ->name('cart.destroy');
+});
 
 // Payments Routes
 Route::get('payement', [FadepayController::class, 'index']) -> name('payement.index');
@@ -59,15 +62,29 @@ Route::get('/merci', function(){
 });
 
 
-
+Route::group(['mmiddleware' =>['auth'] ], function(){
+    
 Route::get('/checkout', [KkiapayController::class, 'checkout'])->name('checkout');
 Route::post('/payment', [KkiapayController::class, 'payment'])->name('payment');
 Route::post('/payment/callback', [KkiapayController::class, 'callback'])->name('payment.callback');
 
 Route::post('checkout', [KkiapayController::class, 'checkout'])-> name('checkout');
+});
 
 Route::post('show', 'FadepayController@fedapay')->name('payment.show');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

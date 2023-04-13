@@ -23,6 +23,30 @@
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ Auth::user()-> name}}
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('profile.edit')}}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('dashboard')}}">Tableau de bord</a></li>
+                    {{-- Deconnexion --}}
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <x-dropdown-link class="text-dark" :href="route('logout')"
+                              onclick="event.preventDefault();
+                                          this.closest('form').submit();">
+                          {{ __('Deconnexion') }}
+                      </x-dropdown-link>
+                  </form>
+                    {{-- End Deconnexion --}}
+                    
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#"></a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categories
               </a>
               <ul class="dropdown-menu">
@@ -39,9 +63,15 @@
             </li>
           </ul>
           <form action="{{ route('products.search')}}" class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="text" name="q" value="{{ request()->q ? : ''}}" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" name="q" value="{{ request()->q ? : '' }}" placeholder="{{ request()->q ? '' : 'Search' }}" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          
+          @if(request()->q)
+            <script>
+              document.querySelector('input[name="q"]').placeholder = "";
+            </script>
+          @endif
         </div>
       </div>
     </div>

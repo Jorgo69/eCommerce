@@ -85,14 +85,26 @@
   
 
 
-
-  {{-- <div class="alert alert-success text-center">
-  </div>
-@endif --}}
+@if (request() -> input('q'))
+<div class="alert alert-success text-center"> {{ $products ->total()}} resulatat pour la recherche "{{  request() -> q}}"
+</div>
+@endif
+  
 @if (session('successd'))
   <div class="alert alert-danger text-center">
     {{ session('successd')}}
   </div>
+@endif
+
+@if (count($errors) >0)
+<div class="alert alert-danger">
+  <ul class="mt-0 mb-0">
+    @foreach ($errors->all() as $error)
+    <li>{{$error}} </li>        
+    @endforeach
+  </ul>
+</div>
+  
 @endif
 
 

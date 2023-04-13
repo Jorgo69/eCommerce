@@ -45,4 +45,10 @@ class User extends \TCG\Voyager\Models\User
     public function orders(){
         return $this->hasMany(Order::class);
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
 }
