@@ -29,6 +29,26 @@ class ProductController extends Controller
         // return view('products.index')->with('products', $products, 'categories', $categories);
     }
 
+    public function restau_index()
+    {
+        // Pour recuperer de façon aleatoires mais par 6
+        // $products = Product::inRandomOrder()->take(6)->get();
+
+        $categories = 'App\Models\Category';
+
+        if(request()->categorie){
+            $products = Product::with('categories')->whereHas('categories', function($query) {
+                $query->where('slug', request()->categorie);
+            })->orderBy('created_at', 'DESC')->paginate(6);
+        }else{
+            $products = Product::with('categories')->orderBy('created_at', 'DESC')->paginate(6);
+        }
+
+
+         return view('template.index', compact('products', 'categories'));
+        // return view('products.index')->with('products', $products, 'categories', $categories);
+    }
+
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();

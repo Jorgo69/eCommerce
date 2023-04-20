@@ -1,6 +1,19 @@
 @extends('layouts.master')
 @section('contenu')
+<script src="https://cdn.kkiapay.me/k.js"></script>
+<h1>     <form action="{{ route('checkout')}}" method="POST">
+    @csrf
 
-<h1> Votre commande a été prise en compte </h1>
+    <kkiapay-widget  amount="{{Cart::subtotal()}}"
+        key="{{ env('KKIAPAY_PUBLIC_KEY')}}" url="<url-vers-votre-logo>"
+        position="center" sandbox="true" data=""
+        callback="{{ route('checkout') }}">
+    </kkiapay-widget>
+
+</form> </h1>
+
+<p>
+
+</p>
     
 @endsection

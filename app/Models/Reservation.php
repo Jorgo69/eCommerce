@@ -10,10 +10,12 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'party_size',
-        'date_time',
-        'amount_paid'
+        'nom',
+        'email',
+        'numero',
+        'table',
+        'date_heure',
+        'requete',
     ];
 
     public function user()

@@ -13,17 +13,29 @@
 
             <a href="{{ route('restau.about') }}" class="nav-item nav-link {{ request()->routeIs('restau.about') ? 'active' : '' }}">A propos</a>
             {{-- <a href="{{ route('service') }}" class="nav-item nav-link {{ request()->routeIs('service') ? 'active' : '' }}">Service</a> --}}
-            <a href="{{ route('products.index') }}" class="nav-item nav-link {{ request()->routeIs('menu') ? 'active' : '' }}">Menu</a>
-            {{-- <div class="nav-item dropdown ">
-                <a href="{{ route('panier.index') }}" class="nav-link dropdown-toggle {{ request()->routeIs('reservation', 'teams', 'temoin') ? 'active' : '' }}" data-bs-toggle="dropdown">Panier <span class="badge text-bg-secondary"> {{ Cart::count() }} </span> </a>
-                <div class="dropdown-menu m-0">
-                    <a href="{{ route('teams') }}" class="dropdown-item">Notre Equipe</a>
-                    <a href="{{ route('temoin') }}" class="dropdown-item">Temoignage</a>
-                </div> --}}
+            {{-- Only Connect --}}
+               
+                
+           @if(Auth::check())
+           <div class="nav-item dropdown">
+               <a href="#" class="nav-link dropdown-toggle {{ request()->routeIs('cart.index', 'dashboard', 'profile.edit') ? 'active' : '' }}" data-bs-toggle="dropdown">{{ Auth::user()->name }}</a>
+               <div class="dropdown-menu m-0">
+                   <a href="{{ route('cart.index')}}" class="dropdown-item">{{ __('Panier')}}</a>
+                   <a href="{{ route('dashboard')}}" class="dropdown-item">{{ __('Tableau de Board')}}</a>
+                   <a href="{{ route('profile.edit')}}" class="dropdown-item">{{ __('Mon Profile')}}</a>
+               </div>
+           </div>
+           {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">Tableau de Board</a> --}}
+       @endif
+       
+            
+            {{-- End Connect --}}
+
             </div>
-            <a href="{{ route('restau.contact') }}" class="nav-item nav-link {{ request()->routeIs('restau.contact') ? 'active' : ' ' }}">Contact</a>
+            <a href="{{ route('restau.contact') }}" class="nav-item nav-link {{ request()->routeIs('restau.contact') ? 'active' : '' }}">Contact</a>
         </div>
-        <a href="{{ route('restau.reservation')}}" class="btn btn-primary py-2 px-4">Reservez une Table</a>
+        <a href="{{ route('products.index')}}" class="btn btn-primary py-2 px-4">Nos Mets @auth <span class="badge text-bg-secondary"> {{ Cart::count() }} </span>@endauth </a>
+        
     </div>
 </nav>
 

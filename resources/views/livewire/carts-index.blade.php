@@ -111,23 +111,14 @@
                                             </div>
 
                                             {{--  --}}
-
+<a href="/merci">Passer a la caisse sommme a payer {{ Cart::subtotal() }}</a>
 
                                             
 
 
                                             {{--  --}}
     
-                                            <form action="{{ route('checkout')}}" method="POST">
-                                                @csrf
-    
-                                                <kkiapay-widget  amount="{{Cart::subtotal()}}"
-                                                    key="{{ env('KKIAPAY_PUBLIC_KEY')}}" url="<url-vers-votre-logo>"
-                                                    position="center" sandbox="true" data=""
-                                                    callback="{{ route('checkout') }}">
-                                                </kkiapay-widget>
-    
-                                            </form>
+     
     
                                         </div>
                                     </div>

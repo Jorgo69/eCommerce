@@ -30,7 +30,9 @@ Route::get('Accueil', [PostController::class, 'home'])->name('restau.index');
 Route::get('A propos', [PostController::class, 'about'])->name('restau.about');
 Route::get('Contactez_Nous', [PostController::class, 'contact'])->name('restau.contact');
 Route::get('Reservation', [PostController::class, 'reservation'])->name('restau.reservation');
-
+Route::get('/#reservation', function () {
+    return redirect()->route('restau.index') . '#reservation';
+});
 
 
 // end Restau
@@ -48,6 +50,10 @@ Route::delete('monPanier{rowId}', [CartController::class, 'remove'])->name('cart
 Route::patch('monPanier{rowId}', [CartController::class, 'update'])->name('cart.update');
 Route::get('videPanier', [CartController::class, 'destroy']) ->name('cart.destroy');
 });
+// Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
+// Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
+
+
 
 // Payments Routes
 Route::get('payement', [FadepayController::class, 'index']) -> name('payement.index');
@@ -58,9 +64,10 @@ Route::get('payement', [FadepayController::class, 'index']) -> name('payement.in
 Route::get('paiemen', [PaymentController::class, 'store']) ->name('payments.store'); */
 
 Route::get('/merci', function(){
-    return view('payments.thankyoi');
+    return view('payments.thankyou') ;
 });
-
+// Reservation
+Route::post('reservons', [PostController::class, 'reserv'])->name('reservant');
 
 Route::group(['mmiddleware' =>['auth'] ], function(){
     
@@ -73,9 +80,7 @@ Route::post('checkout', [KkiapayController::class, 'checkout'])-> name('checkout
 
 Route::post('show', 'FadepayController@fedapay')->name('payment.show');
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -88,3 +93,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

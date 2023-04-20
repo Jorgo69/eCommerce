@@ -62,6 +62,12 @@
                         <div class="row g-5">
                             <div class="col-lg-3 col-md-6">
                                 <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
+                                @auth
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Deconnexion</button>
+                                </form>
+                                @endauth
                                 {{-- <a class="btn btn-link" href="{{ route('about')}}">A propos</a>
                                 <a class="btn btn-link" href="{{ route('contact')}}">Contactez nous</a>
                                 <a class="btn btn-link" href="{{ route('reservation')}}">Reservation</a> --}}

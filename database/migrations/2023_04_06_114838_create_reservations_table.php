@@ -15,17 +15,19 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('nombre_table');
-            $table->dateTime('date_time');
-            $table->integer('montant')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('demande_specifique')->nullable();
+            $table->string('nom');
+            $table->string('email');
+            $table->integer('table');
+            $table->integer('numero');
+            $table->dateTime('date_heure');
+            $table->text('requete');
             
-            $table->unsignedBigInteger('user_id');
+            /* $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade');
+                    ->onDelete('cascade'); */
+                    
             $table->timestamps();
         });
     }
