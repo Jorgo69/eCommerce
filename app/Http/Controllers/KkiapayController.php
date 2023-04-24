@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use DateTime;
 use DateTimeZone;
 use Kkiapay\Kkiapay;
@@ -94,23 +95,23 @@ class KkiapayController extends Controller
 
     // 
     if(  $status === "SUCCESS"){
+            // Soustraction de la quantité vendue du stock pour chaque produit dans le panier
+            foreach (Cart::content() as $cartItem) {
+                $product = Product::find($cartItem->id);
+                $product->stocks -= $cartItem->qty;
+                $product->save();
+            }
+        // Vider le panier
         Cart::destroy();
-    return redirect()->route('products.index')->with('success', 'Prise en compte');
+        return redirect()->route('products.index')->with('success', 'Votre Commande est Prise en compte');
 
-    // $cool = session()->flash('success', 'L\'opération a été effectuée avec succès.');
-        // return back();
-        // return redirect()->route('products.index')->with($cool);
-        // dd($cool);
-        
-        // return Session::has('success') ? view('products.index'):redirect()->route('products.index');
-        // return response()->json(['success' => 'Merci a bientot']);
     }else{
         return response()->json(['success' => 'Non non pas traiter du tout']);
     }
 
     
     // redirect()->route('products.index');
-    redirect()->route('products.index')->with('success', 'Prise en compte');
+    redirect()->route('products.index')->with('success', 'Votre Commande est Prise en compte');
 
  
 

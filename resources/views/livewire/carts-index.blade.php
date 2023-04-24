@@ -35,7 +35,12 @@
                                                     </div>
                                                     <div class="ms-3">
                                                         <h5>{{ $product -> model->title}}</h5>
-                                                        <p class="small mb-0"> CAtegory: </p>
+                                                        @forelse ('App\Models\Category'::all() as $category)
+                                                        <small class="small mb-0"> {{ $category->name}} </small>
+                                                        @empty
+                                                        <p> Aucune Category</p>        
+                                                        @endforelse
+
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -80,7 +85,7 @@
                                 </div>
                                 <div class="col-lg-5">
     
-                                    <div class="card bg-primary text-white rounded-3">
+                                    <div class="card b-primary text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
                                                 <h5 class="mb-0">Card details</h5>
@@ -111,7 +116,7 @@
                                             </div>
 
                                             {{--  --}}
-<a href="/merci">Passer a la caisse sommme a payer {{ Cart::subtotal() }}</a>
+<a class="btn btn-dark" href="{{ route('thanks')}}">Passer a la caisse sommme a payer {{ Cart::subtotal() }}</a>
 
                                             
 

@@ -44,20 +44,31 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'product_qty' => 'required|integer|min:1',
+        ]);
+    
         $product = Product::find($request->product_id);
-
+    
         $duplicata = Cart::search(function ($cartItem, $rowId) use($request) {
             return $cartItem->id == $request->product_id;
         });
-        if($duplicata -> isNotEmpty() ){
-            return redirect() -> route('products.index') ->with('success', 'Le produit existe déjà dans le panier');
+    
+        if($duplicata->isNotEmpty()) {
+            return redirect()->route('products.index')->with('success', 'Le produit existe déjà dans le panier');
         }
-
-        Cart::add($product->id, $product->title, 1, $product->price)
-        ->associate(Product::class);
-
-            return redirect() ->route('products.index') ->with('success', 'Le Produit a été ajouté avec success');
+    
+        if ($product->stocks < $request->product_qty) {
+            return redirect()->route('products.index')->with('success', 'Le stock est insuffisant');
+        }
+    
+        Cart::add($product->id, $product->title, $request->product_qty, $product->price)->associate(Product::class);
+    
+        // $product->decrement('stocks', $request->product_qty);
+    
+        return redirect()->route('products.index')->with('success', 'Le Produit a été ajouté avec success');
     }
+    
 
     /**
      * Display the specified resource.

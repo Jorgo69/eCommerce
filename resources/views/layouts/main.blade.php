@@ -10,7 +10,9 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{{asset('img/logoMaelan.png')}}" rel="icon">
+    {{-- <link rel="stylesheet" href="{{asset('css/color.css')}}"> --}}
+
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="{{asset('https://fonts.googleapis.com')}}">
@@ -37,7 +39,7 @@
 </head>
 
 <body>
-    <div class="container-xxl bg-white p-0">
+    <div class="container-xxl bg-white p-0" id="up">
         <!-- Spinner Start -->
         {{-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -61,7 +63,7 @@
                     <div class="container py-5">
                         <div class="row g-5">
                             <div class="col-lg-3 col-md-6">
-                                <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
+                                <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Company</h4>
                                 @auth
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -75,10 +77,10 @@
                                 <a class="btn btn-link" href="">Terms & Condition</a>
                             </div>
                             <div class="col-lg-3 col-md-6">
-                                <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contact</h4>
-                                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                                <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Contact</h4>
+                                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Premiere vons a gauche apres carrefour a Sainte Rita</p>
+                                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i> 40 95 91 25</p>
+                                <p class="mb-2"><i class="fa fa-envelope me-3"></i>chezalexia@gmail.com</p>
                                 <div class="d-flex pt-2">
                                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -87,18 +89,18 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6">
-                                <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Ouvrable</h4>
+                                <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Ouvrable</h4>
                                 <h5 class="text-light fw-normal">Lundi - Samedi</h5>
                                 <p>09H du mat à 21H du soir</p>
                                 <h5 class="text-light fw-normal">Dimanche</h5>
                                 <p>10H du mat à 20H du soir</p>
                             </div>
                             <div class="col-lg-3 col-md-6">
-                                <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
-                                <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                                <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Newsletter</h4>
+                                <p>Entrez ici votre gmail pour chaque fois recevoir nos News.</p>
                                 <div class="position-relative mx-auto" style="max-width: 400px;">
-                                    <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                                    <input class="form-control border-primary   w-100 py-3 ps-4 pe-5" style="border: #000;" type="text" placeholder="Votre Mail">
+                                    <button type="button" class="btn btn-primary bord-none b-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                                 </div>
                             </div>
                         </div>
@@ -129,12 +131,12 @@
         
         
                 <!-- Back to Top -->
-                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                <a href="#up" class="btn btn-lg btn-primary b-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
         
             <!-- JavaScript Libraries -->
             <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
-            <script src="asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')"></script>
+            <script src="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')}}"></script>
             <script src="{{asset('lib/wow/wow.min.js')}}"></script>
             <script src="{{asset('lib/easing/easing.min.js')}}"></script>
             <script src="{{asset('lib/waypoints/waypoints.min.js')}}"></script>

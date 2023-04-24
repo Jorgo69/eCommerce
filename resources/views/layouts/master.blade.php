@@ -13,8 +13,8 @@
     <title>Chez Alexia</title>
     {{-- @yield('extra-script') --}}
     @livewireStyles
-    <link rel="stylesheet" href="ecommerce.css">
-    <link rel="canonical" href="{{ asset('https://getbootstrap.com/docs/5.3/examples/blog/')}}">
+    {{-- <link rel="stylesheet" href="ecommerce.css">
+    <link rel="canonical" href="{{ asset('https://getbootstrap.com/docs/5.3/examples/blog/')}}"> --}}
 
     
 

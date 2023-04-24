@@ -1,8 +1,18 @@
 /********** Template CSS **********/
 :root {
-    --primary: #FEA116;
+    /* --primary: #FEA116; */
+    --primary: rgba(238, 20, 119);
     --light: #F1F8FF;
     --dark: #0F172B;
+}
+
+
+.primary{
+    color: rgba(238, 20, 119) !important;
+}
+.b-primary{
+    background-color: rgba(238, 20, 119) !important;
+    border-color: rgba(238, 20, 119) !important;
 }
 
 .ff-secondary {
@@ -459,7 +469,7 @@
 .footer .copyright {
     padding: 25px 0;
     font-size: 15px;
-    border-top: 1px solid rgba(256, 256, 256, .1);
+    border-top: 1px solid rgba(255, 255, 255, .1);
 }
 
 .footer .copyright a {

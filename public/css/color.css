@@ -1,0 +1,7 @@
+.primary{
+    color: rgba(238, 20, 119) !important;
+}
+.b-primary{
+    background-color: rgba(238, 20, 119) !important;
+    border-color: rgba(238, 20, 119) !important;
+}

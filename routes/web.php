@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\KkiapayController;
 use App\Http\Controllers\PostController;
@@ -63,9 +64,11 @@ Route::get('payement', [FadepayController::class, 'index']) -> name('payement.in
 /* Route::get('paiement', [PaymentController::class, 'index']) ->name('payments.index');
 Route::get('paiemen', [PaymentController::class, 'store']) ->name('payments.store'); */
 
-Route::get('/merci', function(){
-    return view('payments.thankyou') ;
-});
+// Route::get('/merci', function(){
+//     return view('payments.thankyou') ;
+// });
+Route::get('/merci', [ProductController::class, 'thanks'])->name('thanks');
+
 // Reservation
 Route::post('reservons', [PostController::class, 'reserv'])->name('reservant');
 
@@ -98,3 +101,7 @@ require __DIR__.'/auth.php';
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+Route::get('/confirReservation', [AdminController::class, 'index'])->name('admin.reservation')->middleware('admin.user');
+
+
+

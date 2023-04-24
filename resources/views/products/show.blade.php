@@ -1,26 +1,25 @@
 @extends('layouts.main')
 @section('contenu')
 
-               <!-- Navbar & Hero Start -->
-               <div class="container-xxl position-relative p-0">
-                @include('layouts.navbar')
-     
-                 <div class="container-xxl py-5 bg-dark hero-header mb-5">
-                     <div class="container my-5 py-5">
-                         <div class="row align-items-center g-5">
-                             <div class="col-lg-6 text-center text-lg-start">
-                                 <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
-                                 <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                 <a href="#reservation" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
-                             </div>
-                             <div class="col-lg-6 text-center text-lg-end overflow-hidden">
-                                 <img class="img-fluid" src="img/hero.png" alt="">
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-             <!-- Navbar & Hero End -->
+       <!-- Navbar & Hero Start -->
+       <div class="container-xxl position-relative p-0">
+
+        @include('layouts.navbar')
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Tableau de Board</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item primary"><a href="{{ route('restau.index') }}">Accueil</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="">Pages</a></li> --}}
+                            <li class="breadcrumb-item text-white active" aria-current="page">Tableau de Board</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+    </div>
+    <!-- Navbar & Hero End -->
 
  <main class="container">
   {{-- <a class="btn btn-primary" href="{{ route('cart.index')}}">Panier <span class="badge text-bg-secondary"> {{ Cart::count() }} </span> </a> --}}
@@ -28,7 +27,9 @@
     <div class="col-md-12">
       <div class="row big border rounded overflow-hidden mb-4 shadow-sm position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary"> Categories</strong>
+          <strong class="d-inline-block mb-2 text-primary"> @foreach ($product ->categories as $category)
+            {{ $category->name}}
+          @endforeach </strong>
           <strong class="mt-0">{{$product -> title}}</strong>
           <p class="mb-0">{!! $product -> description !!}</p>
           <div class="big">
@@ -37,8 +38,30 @@
               <form action="{{ route('cart.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="product_id" value="{{$product -> id}}">
+                @if ($product->stocks > 0)
+                <div class="col-md-1">
+                  <input type="number" class="form-control" min="1" name="product_qty" max="{{$product->stocks}}" value="1">
+                </div>
                 <button class="btn btn-dark">Ajouter au Panier</button>
+
+                <div class="d-flex mt-3">
+                  <a href="{{route('products.index')}}" type="button" class="btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"></path>
+                  </svg>
+                    Retour
+                </a>
+                </div>
+                @else
+                <a href="{{route('products.index')}}" type="button" class="btn btn-outline-danger">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"></path>
+                </svg>
+                  Indisponible
+              </a>
+                @endif
               </form>
+
             </span>
           </div>
         </div>

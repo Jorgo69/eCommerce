@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -66,5 +67,9 @@ $products = Product::where('title', 'like', "%$q%")
             ->orWhere('description', 'like', "%$q%")
             ->paginate(8);
         return view('products.search')-> with('products', $products);
+    }
+    public function thanks(){
+        // dd(Cart::content());
+        return view('payments.thankyou');
     }
 }
