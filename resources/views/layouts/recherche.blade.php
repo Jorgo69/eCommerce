@@ -1,6 +1,6 @@
   <form action="{{ route('products.search')}}" weight="50" class="d-flex m-3" role="search">
-    <input class="form-control me-2" type="search" name="q" value="{{ request()->q ? : '' }}" placeholder="{{ request()->q ? '' : 'Search' }}" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    <input class="form-control me-2" type="recherche" name="q" value="{{ request()->q ? : '' }}" placeholder="{{ request()->q ? '' : 'Rechercher' }}" aria-label="recherche">
+    <button class="btn btn-outline-light btn-sm" type="submit">Recherche</button>
   </form>
   
   @if(request()->q)

@@ -5,15 +5,13 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body p-4">
-    
                             <div class="row">
-    
-                                <div class="col-lg-7">
-                                    <h5 class="mb-3"><a href="#!" class="text-body"><i
+                                <div class="col">
+                                    <h5 class="mb-3"><a href="{{route('products.index')}}" class="text-body"><i
                                                 class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
                                     <hr>
     
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                    {{-- <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div>
                                             <p class="mb-1">Shopping cart</p>
                                             <p class="mb-0">You have 4 items in your cart</p>
@@ -22,7 +20,7 @@
                                             <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
                                                     class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     @forelse (Cart::content() as $product)
     
                                     <div class="card mb-3">
@@ -70,10 +68,11 @@
                                                         </form>
                                                     </div>
                                                     <div style="width: 80px;">
-                                                        <h5 class="mb-0"> {{ $product -> model-> prix}}</h5>
+                                                        <h5 class="mb-0"> {{ $product -> model-> price}}</h5>
                                                     </div>
-                                                    <a href="#!" style="color: #cecece;"><i
-                                                            class="fas fa-trash-alt"></i></a>
+                                                    {{ $product ->model ->updateSubtotal }}
+                                                    {{-- <a href="#!" style="color: #cecece;"><i
+                                                            class="fas fa-trash-alt"></i></a> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +82,94 @@
                                     <p> AUCUN PRODUIT DANS LE PANIER </p>
                                     @endforelse
                                 </div>
-                                <div class="col-lg-5">
+                                <form action="{{route('ajou')}}" method="post">
+                                    @csrf
+
+                                    @if (! session()->has('coupon') )
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="code">Enter un coupon</label>
+                                                <input id="code" type="text" class="form-control" name="coupon_code" placeholder="Entrer un coupon pour benefier de nos reductions sur l'addiction">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    @else
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="code">Coupon deja prise en compte</label>
+                                                <input id="code" type="text" class="form-control text-center"  placeholder="Un coupon est deja enreigistre" disabled>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    @endif
+                                    <p>
+                                        {{ session()->has('ville') }}
+                                        {{ session()->has('quartier') }}
+                                    </p>
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="ville-select">Ville :</label>
+                                                <select class="form-select" id="ville-select" name="ville" onchange="afficherQuartiers()" required>
+                                                    <option value="">Sélectionner une ville</option>
+                                                    @foreach ($villes as $ville)
+                                                        <option value="{{ $ville->id }}">{{ $ville->ville }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-3" id="quartiers-container" style="display:none;">
+                                                <select class="form-select" name="quartier" id="quartiers-select" required>
+                                                    <option value="">Selectionner</option>
+                                                    @foreach ($quartiers as $quartier)
+                                                    <option value="{{$quartier->id}}" class="quartier-option ville-{{$quartier->ville_id}}">{{$quartier->quartier}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    <script>
+                                        function afficherQuartiers() {
+                                            // Récupérer la valeur de l'option de ville sélectionnée
+                                            var villeId = document.getElementById("ville-select").value;
+                                  
+                                            // Masquer le champ de sélection de quartier s'il n'y a pas de ville sélectionnée
+                                            if (villeId == "") {
+                                                document.getElementById("quartiers-container").style.display = "none";
+                                                return;
+                                            }
+                                  
+                                            // Afficher le champ de sélection de quartier
+                                            document.getElementById("quartiers-container").style.display = "block";
+                                  
+                                            // Récupérer toutes les options de quartier
+                                            var options = document.getElementsByClassName("quartier-option");
+                                  
+                                            // Masquer toutes les options de quartier
+                                            for (var i = 0; i < options.length; i++) {
+                                                options[i].style.display = "none";
+                                            }
+                                  
+                                            // Afficher les options de quartier qui ont le même ville_id que l'option de ville sélectionnée
+                                            var quartiers = document.getElementsByClassName("quartier-option ville-" + villeId);
+                                            for (var i = 0; i < quartiers.length; i++) {
+                                                quartiers[i].style.display = "block";
+                                            }
+                                        }
+                                    </script>
+                                  
+                                    <input type="submit" value="Valider">
+                                  </form>
+                                  <form action="{{ route('coupon.destroy')}}" method="post">
+                                    @csrf
+                                    {{-- @method('DELETE') --}}
+                                    <button class="btn btn-danger"> Supprimez le coupon</button>
+                                </form>
+                                {{-- <div class="col-lg-5">
     
                                     <div class="card b-primary text-white rounded-3">
                                         <div class="card-body">
@@ -99,36 +185,12 @@
                                                 <p class="mb-2">Quantité Totales</p>
                                                 <p class="mb-2">{{ Cart::count() }}</p>
                                             </div>
-    
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">{{  Cart::subtotal() }}</p>
-                                            </div>
-    
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-2">Taxe</p>
-                                                <p class="mb-2">{{  Cart::tax()  }}</p>
-                                            </div>
-    
-                                            <div class="d-flex justify-content-between mb-4">
-                                                <p class="mb-2">Total(Incl. taxes)</p>
-                                                <p class="mb-2">{{  Cart::total() }}</p>
-                                            </div>
 
-                                            {{--  --}}
-<a class="btn btn-dark" href="{{ route('thanks')}}">Passer a la caisse sommme a payer {{ Cart::subtotal() }}</a>
-
-                                            
-
-
-                                            {{--  --}}
-    
-     
-    
+                                        <a class="btn btn-dark" href="{{ route('thanks')}}">Passer a la caisse sommme a payer {{ Cart::subtotal() }}</a>
                                         </div>
                                     </div>
     
-                                </div>
+                                </div> --}}
     
                             </div>
     

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('table');
             $table->integer('numero');
             $table->dateTime('date_heure');
+            $table->boolean('validated')->default(false);
             $table->text('requete');
             
             /* $table->unsignedBigInteger('user_id');

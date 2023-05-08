@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Quartier;
+use App\Models\Ville;
 use DateTime;
 use DateTimeZone;
 use Kkiapay\Kkiapay;
@@ -20,6 +23,28 @@ class KkiapayController extends Controller
 {
     public function checkout(Request $request)
     {
+
+// $ville = session('ville');
+// $quartier = session('quartier');
+
+// Récupérer les noms de ville et de quartier depuis la session
+$villeName = session('ville');
+$quartierName = session('quartier');
+$couponCode = session('coupon');
+
+// Trouver les modèles de ville et de quartier correspondant aux noms stockés dans la session
+$ville = Ville::where('ville', $villeName)->first();
+$quartier = Quartier::where('quartier', $quartierName)->first();
+$coupon = Coupon::where('code', $couponCode)->first();
+
+
+
+
+// Récupération de la valeur de l'élément de formulaire de type select
+// $quartier_selectionne = $request->input('quartier', '');
+// dd($quartier_selectionne);
+        
+
         // initialiser l'API Kkiapay
     $public_key = env('KKIAPAY_PUBLIC_KEY');
     $private_key = env('KKIAPAY_PRIVATE_KEY');
@@ -74,6 +99,16 @@ class KkiapayController extends Controller
     // $payment->country = $country;
     $payment->id_transaction = $transactionId;
     $payment->date_transaction = $formatted_date;
+    
+    if (!$ville || !$quartier) {
+        // Gérer le cas où la ville ou le quartier n'a pas été trouvé
+    } else {
+        // Affecter les propriétés ville et quartier de l'objet $payment avec les identifiants récupérés
+        $payment->ville = $ville->ville;
+        $payment->quartier = $quartier->quartier;
+    }
+
+
     // $payment->transactionId = $statusCode;
 
     // Recuperation des products
@@ -88,7 +123,14 @@ class KkiapayController extends Controller
 
     $payment->products = serialize($products);
 
-    $payment->user_id = Auth() ->user() ->id;
+    if (Auth::check()) {
+        // Utilisateur connecté, vous pouvez attribuer l'ID de l'utilisateur au paiement
+        $payment->user_id = Auth::user()->id;
+    } else {
+        // Utilisateur non connecté, vous pouvez attribuer un ID temporaire au paiement
+        $payment->user_id = 1; // ou un autre ID temporaire de votre choix
+    }
+    
 
     $payment->save();
     // dd($payment);
@@ -103,6 +145,15 @@ class KkiapayController extends Controller
             }
         // Vider le panier
         Cart::destroy();
+        if (session()->has('ville')) {
+            session()->forget('ville');
+        }
+        if (session()->has('quartier')) {
+            session()->forget('quartier');
+        }
+        if (session()->has('coupon')) {
+            session()->forget('coupon');
+        }
         return redirect()->route('products.index')->with('success', 'Votre Commande est Prise en compte');
 
     }else{

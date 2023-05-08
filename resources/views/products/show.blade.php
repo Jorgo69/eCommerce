@@ -8,12 +8,12 @@
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Tableau de Board</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Details du Produits</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item primary"><a href="{{ route('restau.index') }}">Accueil</a></li>
+                            {{-- <li class="breadcrumb-item primary"><a href="{{ route('restau.index') }}">Accueil</a></li> --}}
                             {{-- <li class="breadcrumb-item"><a href="">Pages</a></li> --}}
-                            <li class="breadcrumb-item text-white active" aria-current="page">Tableau de Board</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Détails</li>
                         </ol>
                     </nav>
                 </div>
@@ -27,7 +27,7 @@
     <div class="col-md-12">
       <div class="row big border rounded overflow-hidden mb-4 shadow-sm position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary"> @foreach ($product ->categories as $category)
+          <strong class="d-inline-block mb-2 text-primary primary"> @foreach ($product ->categories as $category)
             {{ $category->name}}
           @endforeach </strong>
           <strong class="mt-0">{{$product -> title}}</strong>

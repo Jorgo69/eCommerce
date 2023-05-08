@@ -6,6 +6,8 @@ use App\Http\Controllers\KkiapayController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Contact;
+use App\Models\Disponibilite;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -44,15 +46,18 @@ Route::get('/boutique/{slug}', [ProductController::class, 'show'])->name('produc
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
 // Cart Routes
-Route::group(['middleware' =>['auth'] ], function(){
+// Route::group(['middleware' =>['auth'] ], function(){
     Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
-Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
-Route::delete('monPanier{rowId}', [CartController::class, 'remove'])->name('cart.remove');
-Route::patch('monPanier{rowId}', [CartController::class, 'update'])->name('cart.update');
-Route::get('videPanier', [CartController::class, 'destroy']) ->name('cart.destroy');
-});
-// Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
-// Route::get('monPanier', [CartController::class, 'index']) ->name('cart.index');
+    Route::post('monPanier/ajouter', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('monPanier{rowId}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::patch('monPanier{rowId}', [CartController::class, 'update'])->name('cart.update');
+    Route::get('videPanier', [CartController::class, 'destroy']) ->name('cart.destroy');
+
+    //Session
+    Route::post('ajou', [CartController::class, 'coupon'])->name('ajou');
+    Route::post('destroy_coupon', [CartController::class, 'destroyCart'])->name('coupon.destroy');
+// });
+
 
 
 
@@ -86,7 +91,9 @@ Route::post('show', 'FadepayController@fedapay')->name('payment.show');
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $contacts = Contact::all();
+    $disponibilites = Disponibilite::all();
+    return view('dashboard', compact('contacts', 'disponibilites'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

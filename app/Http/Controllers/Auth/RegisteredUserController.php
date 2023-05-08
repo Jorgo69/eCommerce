@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
+use App\Models\Disponibilite;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +22,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $contacts = Contact::all();
+        $disponibilites = Disponibilite::all();
+        return view('auth.register', compact('contacts', 'disponibilites'));
     }
 
     /**

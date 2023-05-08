@@ -69,6 +69,15 @@
                                     @csrf
                                     <button type="submit" class="btn btn-danger">Deconnexion</button>
                                 </form>
+                                @else
+                                
+                                @guest
+                                <form method="GET" action="{{ route('login') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-light">Se Connecter</button>
+                                </form>
+                                {{-- <a href="{{ route('login')}}" class="btn btn-light mt-2 mx-1">{{__('Se Connecter')}} </a> --}}
+                                @endguest
                                 @endauth
                                 {{-- <a class="btn btn-link" href="{{ route('about')}}">A propos</a>
                                 <a class="btn btn-link" href="{{ route('contact')}}">Contactez nous</a>
@@ -78,9 +87,14 @@
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Contact</h4>
-                                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Premiere vons a gauche apres carrefour a Sainte Rita</p>
-                                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i> 40 95 91 25</p>
+                                @forelse ($contacts as $contact)
+                                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{{$contact->emplacement}}</p>
+                                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>{{ $contact->numero}}</p>
                                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>chezalexia@gmail.com</p>
+                                @empty
+                                    <div class="alert alert-danger text-center">Aucune donnee entree</div>
+                                @endforelse
+
                                 <div class="d-flex pt-2">
                                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -90,10 +104,13 @@
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Ouvrable</h4>
-                                <h5 class="text-light fw-normal">Lundi - Samedi</h5>
-                                <p>09H du mat à 21H du soir</p>
-                                <h5 class="text-light fw-normal">Dimanche</h5>
-                                <p>10H du mat à 20H du soir</p>
+                                @forelse ($disponibilites as $disponibilite)
+                                <h5 class="text-light fw-normal">{{ $disponibilite->jours}}</h5>
+                                <p>{{ $disponibilite->heure}}</p>
+                                
+                                @empty
+                                <div class="alert alert-danger text-center">Aucune disponibilité entree</div>
+                            @endforelse
                             </div>
                             <div class="col-lg-3 col-md-6">
                                 <h4 class="section-title ff-secondary text-start text-primary primary fw-normal mb-4">Newsletter</h4>

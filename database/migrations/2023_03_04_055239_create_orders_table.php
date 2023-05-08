@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('montant');
             $table->dateTime('date_transaction');
             $table->text('products');
+            $table->string('ville');
+            $table->string('quartier');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                     ->references('id')

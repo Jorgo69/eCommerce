@@ -11,8 +11,8 @@
                     <h1 class="display-3 text-white mb-3 animated slideInDown">Réservation</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="{{ route('restau.index') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="">Pages</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('restau.index') }}">Accueil</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="">Pages</a></li> --}}
                             <li class="breadcrumb-item text-white active" aria-current="page">Réservation</li>
                         </ol>
                     </nav>
@@ -62,7 +62,7 @@
                            <div class="col-md-6">
                                <div class="form-floating date" data-target-input="nearest">
                                    {{-- <input type="datetime-local" name="date_heure" class="form-control datetimepicker-input" id="datetime" placeholder="Date & Heure" data-target="#date3" data-toggle="datetimepicker" /> --}}
-                                   <input type="datetime-local" name="date_heure" class="form-control datetimepicker-input"  value="{{ old('date', date('Y-m-d\TH:i:s', strtotime('+1 hour', time()))) }}">
+                                   <input type="datetime-local" name="date_heure" class="form-control datetimepicker-input"  value="{{ old('date', date('Y-m-d\TH:i:s', strtotime('+1 hours', time()))) }}">
                                    <label for="datetime">Date & Heure</label>
                                </div>
                                <script>

@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
+use App\Models\Coupon;
+use App\Models\Disponibilite;
 use App\Models\Product;
+use App\Models\Quartier;
+use App\Models\Ville;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -16,12 +21,82 @@ class CartController extends Controller
      */
     public function index()
     {
+        $villes = Ville::all();
+        $quartiers = Quartier::all();
+        $contacts = Contact::all();
+        $disponibilites = Disponibilite::all();
+
         if( Cart::count() <= 0 ){
             return redirect() ->route('products.index');
         }
         $price = Cart::total();
 
-        return view('cart.index', ['price' => $price]);
+        return view('cart.index',  compact('price', 'contacts', 'disponibilites', 'villes', 'quartiers'));
+    }
+
+    public function coupon(Request $request){
+        if (session()->has('ville')) {
+            session()->forget('ville');
+        }
+        
+        $ville = $request->input("ville");
+        $ville = Ville::find($ville)->ville;
+        session()->put('ville', $ville);
+
+        if (session()->has('quartier')) {
+            session()->forget('quartier');
+        }
+    
+        $quartier = $request->input("quartier");
+        $quartier = Quartier::find($quartier)->quartier;
+        session()->put('quartier', $quartier);
+    
+        $coupon_code = $request->input("coupon_code");
+        // session()->put('coupon_code', $coupon_code);
+
+    
+        if ($coupon_code) {
+            $coupon = Coupon::where('code', $coupon_code)->first();
+    
+            if (!$coupon) {
+                return back()->with('success', 'Coupon Invalid');
+            }
+    
+            if ($coupon->stock <= 0) {
+                return back()->with('success', 'Desole Coupon Epuise');
+            }
+            $request->session()->put('coupon',[
+                'code' => $coupon->coupon_code,
+                'remise' =>$coupon->discount(Cart::subtotal())
+            ]);
+    
+            /* $reduction = $coupon->reduction;
+            $reduc = Cart::subtotal() * $reduction / 100; */
+            // dd($to);
+    
+            // $coupon->stock--;
+            // $coupon->save();
+        }
+        
+        if(session('coupon')){
+            return redirect()->route('thanks')->with('success', 'Coupon prise en compte avec Success');
+        }else{
+            return redirect()->route('thanks');
+        }
+        
+    }
+    public function destroyCart(){
+        if (session()->has('coupon')) {
+            session()->forget('coupon');
+            // return back()->with('success', 'Coupon supprimer avec success');
+        }
+        if (session()->has('ville')) {
+            session()->forget('ville');
+        }
+        if (session()->has('quartier')) {
+            session()->forget('quartier');
+        }
+        return back()->with('success', 'Coupon supprimer avec success');
     }
 
     
@@ -101,11 +176,12 @@ class CartController extends Controller
      */
     public function update(Request $request, $rowId)
     {
+
         $data = $request->json()->all();
         Cart::update($rowId, $data['qty']);
 
         Session::flash('success', 'La quantité du produit est passée à ' . $data['qty'] . '.');
-        return response()->json(['success' => 'Cart Quantity Has Been Updated']);
+        // return response()->json(['success' => 'Cart Quantity Has Been Updated']);
     }
 
     /**
