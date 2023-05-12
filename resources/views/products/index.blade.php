@@ -85,7 +85,7 @@
   height: 20px;
 }
   </style>
-<div class="pagination">
+<div class="pagination primary">
   {{ $products->appends(request()->input())->links() }}
 </div>
 </main>

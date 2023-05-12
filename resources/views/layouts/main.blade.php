@@ -90,9 +90,11 @@
                                 @forelse ($contacts as $contact)
                                 <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{{$contact->emplacement}}</p>
                                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>{{ $contact->numero}}</p>
-                                <p class="mb-2"><i class="fa fa-envelope me-3"></i>chezalexia@gmail.com</p>
+                                <p class="mb-2"><i class="fa fa-envelope me-3"></i></p>
                                 @empty
-                                    <div class="alert alert-danger text-center">Aucune donnee entree</div>
+                                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i> Deuxieme von apres carrefour AGONTIGON </p>
+                                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i> 69 23 82 65</p>
+                                    <p class="mb-2"><i class="fa fa-envelope me-3"></i> chezalexia@gmail.com</p>
                                 @endforelse
 
                                 <div class="d-flex pt-2">
@@ -109,7 +111,10 @@
                                 <p>{{ $disponibilite->heure}}</p>
                                 
                                 @empty
-                                <div class="alert alert-danger text-center">Aucune disponibilité entree</div>
+                                <h5 class="text-light fw-normal">Lundi au Vendredi</h5>
+                                <p> 09h - 21h </p>
+                                <h5 class="text-light fw-normal">Samedi</h5>
+                                <p> 12h - 23h </p>
                             @endforelse
                             </div>
                             <div class="col-lg-3 col-md-6">
@@ -148,7 +153,7 @@
         
         
                 <!-- Back to Top -->
-                <a href="#up" class="btn btn-lg btn-primary b-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                <a href="{{ ('#up')}}" class="btn btn-lg btn-primary b-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
             </div>
         
             <!-- JavaScript Libraries -->
