@@ -39,6 +39,33 @@
 </head>
 
 <body>
+    @if (session('success'))
+<div id="alert" class="alert alert-success text-center mt-5">
+    {{ session('success')}}
+    <button id="closeBtn" type="button" class="close btn btn-outline-danger justify-content-right">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+        </svg>
+        Fermer
+    </button>
+</div>
+@endif
+
+{{-- Message Delete --}}
+@if (session('delete'))
+<div id="alert" class="alert alert-danger text-center mt-5">
+    {{ session('delete')}}
+    <button id="closeBtn" type="button" class="close btn btn-outline-danger justify-content-right">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
+        </svg>
+        Fermer
+    </button>
+</div>
+@endif
+
     <div class="container-xxl bg-white p-0" id="up">
         <!-- Spinner Start -->
         {{-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -154,7 +181,7 @@
         
                 <!-- Back to Top -->
                 <a href="{{ ('#up')}}" class="btn btn-lg btn-primary b-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-            </div>
+    </div>
         
             <!-- JavaScript Libraries -->
             <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
@@ -171,6 +198,13 @@
             <!-- Template Javascript -->
             <script src="{{asset('js/main.js')}}"></script>
             @livewireScripts
+
+            <script>
+                document.getElementById('closeBtn').addEventListener('click', function() {
+                    document.getElementById('alert').style.display = 'none';
+                });
+            </script>
+            
         </body>
         
         </html>

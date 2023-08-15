@@ -193,7 +193,7 @@ class CartController extends Controller
 
      public function remove($rowId){
         Cart::remove($rowId);
-        return back() ->with('successd', 'Le produit a bien été supprimé');
+        return back() ->with('delete', 'Le produit a bien été supprimé');
      }
 
 

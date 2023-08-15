@@ -42,7 +42,7 @@ Route::get('/#reservation', function () {
 
 /* Product Routes */
 Route::get('/boutique', [ProductController::class, 'index'])->name('products.index');
-Route::get('/boutique/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/boutique/{id}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 
 // Cart Routes

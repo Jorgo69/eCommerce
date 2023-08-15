@@ -25,8 +25,8 @@
             <div class="col-12">
                 <div class="row gy-4">
                     <div class="col-md-4">
-                        <h5 class="section-title ff-secondary fw-normal text-start text-primary primary">Réservation</h5>
-                        <p><i class="fa fa-envelope-open text-primary me-2 primary"></i>book@example.com</p>
+                        <h5 class="section-title ff-secondary fw-normal text-start text-primary primary">Réservation via Whatsapp</h5>
+                        <p><i class="fa fa-envelope-open text-primary me-2 primary"></i>69238265</p>
                     </div>
                     <div class="col-md-4">
                         <h5 class="section-title ff-secondary fw-normal text-start text-primary primary">Général</h5>

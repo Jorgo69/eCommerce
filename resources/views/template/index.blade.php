@@ -36,7 +36,7 @@
                             @forelse ($products as $product)
                             <div class="col-lg-6">
                                 <div class="d-flex align-items-center">
-                                    <a href="{{ route('products.show', $product ->slug)}}"> <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('storage/' .$product ->image) }}" alt="" style="width: 80px;"> </a>
+                                    <a href="{{ route('products.show', $product ->id)}}"> <img class="flex-shrink-0 img-fluid rounded" src="{{ asset('storage/' .$product ->image) }}" alt="" style="width: 80px;"> </a>
                                     <div class="w-100 d-flex flex-column text-start ps-4">
                                         <h5 class="d-flex justify-content-between border-bottom pb-2">
                                             <span>{{$product->title}}</span>
@@ -276,14 +276,17 @@
                                       <option value="1">1 Personne </option>
                                       <option value="2">2 Personne </option>
                                       <option value="3">3 Personne </option>
+                                      <option value="4">4 Personne </option>
+                                      <option value="5">5 Personne </option>
+                                      <option value="+5+">5 Personne et plus</option>
                                     </select>
-                                    <label for="select1">No Of People</label>
+                                    <label for="select1">Nbre de Personnes</label>
                                   </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <textarea name="requete" class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Special Request</label>
+                                    <label for="message">Requete Speciale</label>
                                 </div>
                             </div>
                             <div class="col-12">

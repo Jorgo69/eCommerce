@@ -58,12 +58,12 @@ class ProductController extends Controller
         // return view('products.index')->with('products', $products, 'categories', $categories);
     }
 
-    public function show($slug)
+    public function show($id)
     {
         $contacts = Contact::all();
         $disponibilites = Disponibilite::all();
 
-        $product = Product::where('slug', $slug)->firstOrFail();
+        $product = Product::where('id', $id)->firstOrFail();
 
         return view('products.show', compact('product', 'contacts', 'disponibilites'));
     }

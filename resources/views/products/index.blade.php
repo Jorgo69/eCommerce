@@ -62,7 +62,7 @@
           <p class="card-text"><strong>{{$product -> price}} F CFA</strong></p>
           <p class="card-text"><small class="text-body-secondary">{{$product -> created_at ->format('d/m/Y')}}</small></p>
           <div class="d-flex justify-content-end">
-            <a href="{{ route('products.show', $product ->slug)}}" class="btn btn-dark stretched-link">Voir Plus</a>
+            <a href="{{ route('products.show', $product ->id)}}" class="btn btn-dark stretched-link">Voir Plus</a>
           </div>
         </div>
       </div>
